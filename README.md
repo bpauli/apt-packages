@@ -26,7 +26,7 @@ The repository is signed with this key:
 
 ```text
 Burkhard Pauli APT repository <burkhard@pauli.tech>
-1A35 8FDB 847D 8E60 CCE8  B121 3168 A763 883F 7A7F
+D938 19E1 6C12 6779 1909  1714 0B1A E188 72B1 9100
 ```
 
 ## How it works
