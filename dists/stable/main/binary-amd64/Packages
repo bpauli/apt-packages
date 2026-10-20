@@ -6,11 +6,11 @@ Section: utils
 Maintainer: Burkhard Pauli <burkhard@pauli.tech>
 Installed-Size: 11066
 Filename: pool/main/g/gccli/gccli_2.3.0_amd64.deb
-Size: 4548626
-MD5sum: 477708eea8387eec64eb531fab27e93b
-SHA1: 5b69499a79e66d3da04d196a53739cd259435c55
-SHA256: aed5fb3714a001a6973277af2accd63ccd864eb7bfc26f2c5bbc33cd0030f619
-SHA512: af64ffb6e451d7f22ed4c34f0d22fdb615e85b5bc8f3dfbd4d0e7fd076d39c925420b1888b0c7bc1d29daf6ca0c02b229568f225ec5994a9131ffa06c2f53a5b
+Size: 4548618
+MD5sum: b40ac706159d21b18523be7209c1f020
+SHA1: 86f86112c737440b54c81018853d386bfcad2f22
+SHA256: de2103231f16adf48c024c318057dd9bd3788c5b6ef0cf58eeb59a8832d27f7a
+SHA512: a7394d94f335244817b806e89a5d86583935c0cdb3bb02e2f6bc8e06d2048dbc6b2e2a565315788bf0b0898a5bc2ec87dba15c3f7551588ada5fcff55cc62b55
 Homepage: https://github.com/bpauli/gccli
 Description: Command-line interface for Garmin Connect
 
