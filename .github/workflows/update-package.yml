@@ -1,0 +1,74 @@
+name: Update APT Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Debian package name (e.g., zwift-bootstrap)"
+        required: true
+        type: string
+      tag:
+        description: "Release tag (e.g., v0.1.1)"
+        required: true
+        type: string
+      repository:
+        description: "Source repository (e.g., bpauli/zwift-bootstrap)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apt-repository
+  cancel-in-progress: false
+
+jobs:
+  update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout apt-packages
+        uses: actions/checkout@v4
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Import signing key
+        env:
+          APT_GPG_PRIVATE_KEY: ${{ secrets.APT_GPG_PRIVATE_KEY }}
+        run: printf '%s\n' "$APT_GPG_PRIVATE_KEY" | gpg --batch --import
+
+      - name: Download and verify the package
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PACKAGE: ${{ inputs.package }}
+          TAG: ${{ inputs.tag }}
+          REPO: ${{ inputs.repository }}
+        run: |
+          gh release download "${TAG}" --repo "${REPO}" --dir incoming \
+            --pattern "${PACKAGE}_*_amd64.deb" --pattern checksums.txt
+          cd incoming
+          grep "_amd64.deb" checksums.txt | sha256sum --check
+          pool="../pool/main/${PACKAGE:0:1}/${PACKAGE}"
+          mkdir -p "${pool}"
+          mv ${PACKAGE}_*_amd64.deb "${pool}/"
+          cd ..
+          rm -r incoming
+
+      - name: Rebuild and sign the indexes
+        run: scripts/update-repo.sh
+
+      - name: Commit and push
+        env:
+          PACKAGE: ${{ inputs.package }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          git add pool dists
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Update ${PACKAGE} to ${TAG}"
+          git push
