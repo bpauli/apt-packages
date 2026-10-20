@@ -4,17 +4,20 @@
 set -eu
 
 dist=dists/stable
-mkdir -p "$dist/main/binary-amd64"
+archs="amd64 arm64"
 
-apt-ftparchive --arch amd64 packages pool > "$dist/main/binary-amd64/Packages"
-gzip -9 --keep --force "$dist/main/binary-amd64/Packages"
+for arch in $archs; do
+    mkdir -p "$dist/main/binary-$arch"
+    apt-ftparchive --arch "$arch" packages pool > "$dist/main/binary-$arch/Packages"
+    gzip -9 --keep --force "$dist/main/binary-$arch/Packages"
+done
 
 apt-ftparchive \
     -o APT::FTPArchive::Release::Origin=bpauli \
     -o APT::FTPArchive::Release::Label=bpauli \
     -o APT::FTPArchive::Release::Suite=stable \
     -o APT::FTPArchive::Release::Codename=stable \
-    -o APT::FTPArchive::Release::Architectures=amd64 \
+    -o APT::FTPArchive::Release::Architectures="$archs" \
     -o APT::FTPArchive::Release::Components=main \
     release "$dist" > "$dist/Release"
 

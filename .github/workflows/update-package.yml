@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       package:
-        description: "Debian package name (e.g., zwift-bootstrap)"
+        description: "Debian package name (e.g., gccli)"
         required: true
         type: string
       tag:
@@ -40,22 +40,21 @@ jobs:
           APT_GPG_PRIVATE_KEY: ${{ secrets.APT_GPG_PRIVATE_KEY }}
         run: printf '%s\n' "$APT_GPG_PRIVATE_KEY" | gpg --batch --import
 
-      - name: Download and verify the package
+      - name: Install nfpm
+        run: |
+          curl -fsSLO https://github.com/goreleaser/nfpm/releases/download/v2.47.0/nfpm_2.47.0_amd64.deb
+          curl -fsSL https://github.com/goreleaser/nfpm/releases/download/v2.47.0/checksums.txt \
+            | grep ' nfpm_2.47.0_amd64.deb$' | sha256sum --check
+          sudo dpkg -i nfpm_2.47.0_amd64.deb
+          rm nfpm_2.47.0_amd64.deb
+
+      - name: Download, verify and package the release
         env:
           GH_TOKEN: ${{ github.token }}
           PACKAGE: ${{ inputs.package }}
           TAG: ${{ inputs.tag }}
           REPO: ${{ inputs.repository }}
-        run: |
-          gh release download "${TAG}" --repo "${REPO}" --dir incoming \
-            --pattern "${PACKAGE}_*_amd64.deb" --pattern checksums.txt
-          cd incoming
-          grep "_amd64.deb" checksums.txt | sha256sum --check
-          pool="../pool/main/${PACKAGE:0:1}/${PACKAGE}"
-          mkdir -p "${pool}"
-          mv ${PACKAGE}_*_amd64.deb "${pool}/"
-          cd ..
-          rm -r incoming
+        run: scripts/fetch-package.sh "${PACKAGE}" "${TAG}" "${REPO}"
 
       - name: Rebuild and sign the indexes
         run: scripts/update-repo.sh
