@@ -29,6 +29,10 @@ jobs:
     steps:
       - name: Checkout apt-packages
         uses: actions/checkout@v4
+        with:
+          # The branch tip at run time, not the commit of the dispatch, so that a
+          # queued run builds on the push of the run before it.
+          ref: main
 
       - name: Setup Git
         run: |
