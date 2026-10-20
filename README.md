@@ -1,6 +1,6 @@
 # apt-packages
 
-Signed APT repository for Debian and Ubuntu, updated on each release via GitHub Actions. It is served from GitHub Pages at https://bpauli.github.io/apt-packages.
+Signed APT repository for Debian and Ubuntu, updated on each release via GitHub Actions. It is served from GitHub Pages at https://bpauli.de/apt-packages.
 
 ## Packages
 
@@ -11,8 +11,8 @@ Signed APT repository for Debian and Ubuntu, updated on each release via GitHub 
 Supported systems: Debian 12 and later, Ubuntu 22.04 and later, on amd64.
 
 ```sh
-curl -fsSL https://bpauli.github.io/apt-packages/key.gpg | sudo tee /usr/share/keyrings/bpauli-apt.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/bpauli-apt.gpg] https://bpauli.github.io/apt-packages stable main" | sudo tee /etc/apt/sources.list.d/bpauli.list
+curl -fsSL https://bpauli.de/apt-packages/key.gpg | sudo tee /usr/share/keyrings/bpauli-apt.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/bpauli-apt.gpg] https://bpauli.de/apt-packages stable main" | sudo tee /etc/apt/sources.list.d/bpauli.list
 sudo apt update
 sudo apt install zwift-bootstrap
 ```
