@@ -44,6 +44,12 @@ jobs:
           APT_GPG_PRIVATE_KEY: ${{ secrets.APT_GPG_PRIVATE_KEY }}
         run: printf '%s\n' "$APT_GPG_PRIVATE_KEY" | gpg --batch --import
 
+      # apt-ftparchive is not in the ubuntu-26.04 runner image.
+      - name: Install apt-utils
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends apt-utils
+
       - name: Install nfpm
         run: |
           curl -fsSLO https://github.com/goreleaser/nfpm/releases/download/v2.47.0/nfpm_2.47.0_amd64.deb
