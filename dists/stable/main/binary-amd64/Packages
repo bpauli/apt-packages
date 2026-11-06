@@ -209,3 +209,24 @@ Description: Install, update and start the Zwift game files on Linux with Wine
  files from the Zwift CDN with length and CRC-32 checks, and starts ZwiftApp.exe
  with Wine.
 
+Package: zwift-bootstrap
+Architecture: amd64
+Version: 0.5.2-1
+Priority: optional
+Section: games
+Maintainer: Burkhard Pauli <burkhard@pauli.tech>
+Installed-Size: 14957
+Depends: libc6 (>= 2.34), libc6 (>= 2.35), libcap2-bin, libdbus-1-3 (>= 1.9.14)
+Suggests: wine, libnotify-bin
+Filename: pool/main/z/zwift-bootstrap/zwift-bootstrap_0.5.2-1_amd64.deb
+Size: 4437908
+MD5sum: d8faa5d8215d158f83f4959894ef285c
+SHA1: c3bee3f560cb069947546d39a6706395cd0e1e4c
+SHA256: 4e5bee7bd931aeef9e4a9a00ed35877ec3f57e90f6d1cc8ad3f5fad0b4b84c32
+SHA512: 0b7c06f255e3c2a24cf675abf25470a98af333b640a0c3832d2a9d6bf1501db204c57c58409e2c5709e6115cb97fed846473ca1f6d563f21571745bb8eee1b90
+Homepage: https://github.com/bpauli/zwift-bootstrap
+Description: Install, update and start the Zwift game files on Linux with Wine
+ Unofficial native Linux launcher for Zwift. Installs and updates the Zwift game
+ files from the Zwift CDN with length and CRC-32 checks, and starts ZwiftApp.exe
+ with Wine.
+
