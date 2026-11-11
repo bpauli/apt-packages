@@ -78,3 +78,19 @@ SHA512: ad540e7d1164894c1a6114261a4d577a8884fdb6449aeecf99202ddb79c87100399a2319
 Homepage: https://github.com/bpauli/gccli
 Description: Command-line interface for Garmin Connect
 
+Package: gccli
+Architecture: arm64
+Version: 3.3.1
+Priority: optional
+Section: utils
+Maintainer: Burkhard Pauli <burkhard@pauli.tech>
+Installed-Size: 11911
+Filename: pool/main/g/gccli/gccli_3.3.1_arm64.deb
+Size: 4504940
+MD5sum: 0501ce8185aecaef3cda7c493328d6a9
+SHA1: 87b438d9cc2bdb9356b9fc09db330e0fc513a10f
+SHA256: 649242f963f2b145d6b25cf527eb02ab0e2c98551c440baca70cfd4586d909de
+SHA512: c147598d716df4931ece583e26d40fae45908dbe0e54ea85e463c3dc8ecfdb647edfff207cb56a7e931edf990a984c8920369f600bc8d56715abc83000613911
+Homepage: https://github.com/bpauli/gccli
+Description: Command-line interface for Garmin Connect
+
